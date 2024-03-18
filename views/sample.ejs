@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Mobile Nav</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f0f0f0;
+}
+
+#menu-toggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+nav#mobile-nav {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Initially hidden off-screen */
+  width: 100%;
+  height: 100vh; /* Fills viewport height */
+  background-color: #fff;
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+nav#mobile-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav#mobile-nav li {
+  margin-bottom: 1rem;
+}
+
+nav#mobile-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Show/Hide menu animation */
+#mobile-nav.active {
+  left: 0; /* Slide in from the left */
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle">Menu</button>
+    <h1>Your Website Title</h1>
+  </header>
+  <nav id="mobile-nav">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <main>
+    </main>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+
+menuToggle.addEventListener('click', function() {
+  mobileNav.classList.toggle('active');
+});
+
+  </script>
+</body>
+</html>

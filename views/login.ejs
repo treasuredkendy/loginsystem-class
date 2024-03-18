@@ -10,7 +10,10 @@
     <%- include("_nav.ejs") %>
 
     <h3>Login</h3>
-    <form action="">
+    <% if(locals.message){ %>
+        <p style="color: green;"> <%= message  %> </p>
+    <% } %>
+    <form action="/login" method="POST">
         <div>
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
