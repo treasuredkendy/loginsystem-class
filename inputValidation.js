@@ -1,6 +1,6 @@
 function validateRegistration(email, fullname, password, confirmPassword, date) {
     const errors = [];
-  
+  // hjh
     // Email validation (basic check)
     if (!email || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       errors.push("Invalid email format");
