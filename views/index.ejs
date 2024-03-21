@@ -6,7 +6,12 @@
     <title>Login System</title>
 </head>
 <body>
-    <h1>Welcome User</h1>
+    <% if(locals.user){ %>
+        <h1>Welcome <%=user.fullname%></h1>
+    <% } else { %>
+        <h1>Welcome User</h1>
+    <% } %>
+
     <%- include("_nav.ejs") %>
     <p>This is a login system that can be intergrated into any project!!</p>
     <p>System capabilities</p>
@@ -20,5 +25,10 @@
         <li>Password encryption</li>
         <li>Backend input validation</li>
     </ul>
+    <script>
+        document.cookie = "name=oeschger; SameSite=None; Secure";
+        document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+    </script>
 </body>
 </html>

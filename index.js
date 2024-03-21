@@ -1,6 +1,7 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const session = require("express-session")
+const cookieParser = require('cookie-parser')
 const mysql = require("mysql")
 const myConnection = mysql.createConnection({
     host: "localhost",
@@ -41,9 +42,31 @@ app.use(express.static("assets")) // tell express to look for static files(css, 
 app.use(session({
     secret: "jfdjfd",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: 600000}
 }))
+app.use(cookieParser())
+app.use((req,res,next)=>{
+    const protectedRoutes = ["/protectedRouteOne","/protectedRouteTwo","/profile",]
+    const adminRoutes = ["/profile"]
+    const adminEmail = "admin@eldohub.co.ke"
+    if(req.session && req.session.user ){
+        res.locals.user = req.session.user
+        if(adminRoutes.includes(req.path) && req.session.user.role === "admin") {
 
+        }else{
+
+        }
+        next()
+    }else if(protectedRoutes.includes(req.path)){
+        res.status(201).send("Login to acess this resource")
+    }else {
+        // public route -- , signup, landing, login
+        next()
+    }
+   
+})
+// app.post("/colletcookie")
 app.get("/", (req, res)=>{
     console.log(req.baseUrl);
     console.log(req.cookies);
@@ -68,7 +91,7 @@ app.post("/login", (req,res)=>{
     // wHAT ARE SESSIONS AND WHY WE NEED SESSIONS IN A WEB SERVER
     // WHAT DOES IT MEAN TO SAY HTTP IS STATELESS
     console.log(req.body);
-    const loginStatement = `SELECT email, password FROM users WHERE email = '${req.body.email}'`
+    const loginStatement = `SELECT email,fullname, password FROM users WHERE email = '${req.body.email}'`
     myConnection.query(loginStatement, (sqlErr, userData)=>{
         if(sqlErr){
             console.log(sqlErr.message);
